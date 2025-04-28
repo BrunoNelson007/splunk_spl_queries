@@ -1,0 +1,33 @@
+for anything inside quotes. eg  -from "threat" is critical
+| rex from "\"(?<threat>[^\"]+)\""
+
+for colon : separated fields 
+| rex field=_raw "(?<key>[^:]+): (?<value>[^\s]+)"
+
+for dash separated part. eg date 2024-09-11
+| rex date "(?<first_part>[^-]+)-(?<second_part>[^-]+)-(?<third_part>[^-]+)"
+
+for equals separated fields. eg user src_ip=192.168.76.92
+| rex user "(?<key>[^=]+)=(?<value>[^ ]+)"
+
+to extract everything handling colon, quotes, and equals
+  | rex field=_raw "(?:(?<key>[^:=]+)[:=]\s*(?<value>\"[^\"]+\"|[^ ]+))"
+
+
+combine them all. eg  -
+log: Apr 02 14:01:00 kali sshd[2205]: Failed password for invalid user admin from 192.168.1.100 port 55874 ssh2
+
+spl: | rex field=_raw "(?<date>\w+\s+\d+)\s+(?<time>\d+:\d+:\d+)\s+(?<host>\w+)\s+(?<process>\w+\d+):\s+(?<message>.*)"
+
+It extracts:
+
+date = Apr 02
+
+time = 14:01:00
+
+host = kali
+
+process = sshd[2205]
+
+message = Failed password for invalid user admin from 192.168.1.100 port 55874 ssh2
+
