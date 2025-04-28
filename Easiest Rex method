@@ -1,0 +1,43 @@
+EASIEST REX Method (Extract Fields)
+
+Splunk gives you a point-and-click way to create REX without writing any regex yourself!
+
+Here’s how:
+
+Steps:
+
+1. In Splunk, run your search normally. Example:
+
+index=main sourcetype=sim.logs "accepted password"
+
+
+2. Find one sample event (raw log) you want to extract fields from.
+
+
+3. Hover your mouse over the raw log line.
+
+
+4. Click on the dropdown arrow at the left of the event.
+
+(You’ll see options like "Event Actions", "Extract Fields", etc.)
+
+
+5. Click Extract Fields.
+
+
+6. It will open the "Field Extractor Wizard".
+
+
+7. Follow the wizard:
+
+It will show your raw event.
+
+You highlight text you want to extract (like the username, or the IP).
+
+Splunk will automatically generate a regular expression for you!
+
+You can name the fields (like username, src_ip).
+
+
+
+8. Save it as a field extraction (inline or globally).
